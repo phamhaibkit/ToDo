@@ -1,0 +1,16 @@
+<mat-toolbar class="header">
+  <span>Todo App</span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" 
+    #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()" >
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu #menu="matMenu" [overlapTrigger]="false">
+  <span (mouseleave)="menuTrigger.closeMenu()">
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+  </span>
+</mat-menu>
+<router-outlet></router-outlet>
