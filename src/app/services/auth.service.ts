@@ -19,16 +19,23 @@ export class AuthService {
       Authorization: 'Basic ' + btoa(`${auth.username}:${auth.password}`)
     });
     return this.restService.post(environment.apiUrl + '/auth/login', null, headers)
-    .pipe(
-      map(d => {
-        return d;
-      },
-        throwError('Could not be authenticated')
-      ));
+      .pipe(
+        map(d => {
+          return d;
+        },
+          throwError('Could not be authenticated')
+    ));
   }
 
-  logout() {
-    localStorage.removeItem('apiKey');
+  logout(): Observable<boolean> {
+    return this.restService.post(environment.apiUrl + '/auth/logout', null)
+      .pipe(
+        map(d => {
+          localStorage.removeItem('apiKey');
+          return true;
+        },
+          throwError('Could not be authenticated')
+    ));
   }
 
   loggedIn(): boolean {

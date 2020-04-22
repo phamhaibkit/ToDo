@@ -1,27 +1,27 @@
 
 <div class="list-detail">
-  <h3>
+  <p class="label">
     Edit List
-  </h3>
+  </p>
 
   <mat-form-field class="input-task">
     <input matInput placeholder="Input List Name" [(ngModel)]="listName">
   </mat-form-field>
   
-  <button mat-raised-button (click)="editListName()">
+  <button mat-raised-button mat-primary (click)="editListName()" [disabled]="listName === periousListName">
     <mat-icon>save</mat-icon>
     Save
   </button>
 
-  <h3>
+  <p class="label">
     Tasks
-  </h3>
+  </p>
 
   <mat-form-field class="input-task">
     <input matInput placeholder="Input New Task" [(ngModel)]="newTask">
   </mat-form-field>
   
-  <button mat-raised-button (click)="addNewTask()">
+  <button mat-raised-button  (click)="addNewTask()" [disabled]="!newTask">
     <mat-icon>add</mat-icon>
     Add
   </button>
@@ -30,7 +30,7 @@
     <mat-card class="task-item">
       <mat-checkbox [checked]="task.completed" (change)="onCheckbox(task.id)">{{ task?.name }}</mat-checkbox>
       <div>
-        <button class="delete-button" (click)="editTask(task.id)">
+        <button class="delete-button" (click)="editTask(task)">
           <mat-icon>edit</mat-icon>
         </button>
         <button class="delete-button" (click)="deleteTask(task.id)">

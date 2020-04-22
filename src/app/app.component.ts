@@ -10,7 +10,10 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   constructor( private authService: AuthService, private router: Router) {}
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.authService.logout().subscribe(res => {
+      this.router.navigate(['/login']);
+    }, error => {
+      console.log('Logout error', error);
+    });
   }
 }

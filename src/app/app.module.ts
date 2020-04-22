@@ -8,8 +8,9 @@ import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoListDetailComponent } from './todo-list-detail/todo-list-detail.component';
 import { LoginComponent } from './login/login.component';
+import { EditTaskComponent } from './edit-task/edit-task.component';
 
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatDialogModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -23,7 +24,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     AppComponent,
     TodoListComponent,
     TodoListDetailComponent,
-    LoginComponent
+    LoginComponent,
+    EditTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +42,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HttpClientModule,
     ReactiveFormsModule,
     MatMenuModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditTaskComponent]
 })
 export class AppModule { }

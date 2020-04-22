@@ -1,5 +1,9 @@
 .form-container {
   padding: 20px;
+  .label {
+    font-size: 18px;
+    font-weight: 500;
+  }
   .input-task {
     margin-right: 10px;
   }
@@ -25,10 +29,11 @@
     .delete-button {
       position: relative;
       left: -30px;
-      border-radius: 20px;
+      top: -7px;
+      border-radius: 18px;
       border: none;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
     }
   }
 }

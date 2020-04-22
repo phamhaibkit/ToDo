@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ITask } from './../modals/list';
 import { TodoTaskService } from '../services/todo-task.service';
 import { TodoListService } from '../services/todo-list.service';
+import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-todo-list-detail',
@@ -12,19 +14,24 @@ import { TodoListService } from '../services/todo-list.service';
 })
 export class TodoListDetailComponent implements OnInit {
   listName = '';
+  periousListName = '';
   newTask = '';
   tasks: ITask[] = [];
   listId: number;
-  isEditTask = false;
-  constructor(private route: ActivatedRoute, private todoTaskService: TodoTaskService, private todoListService: TodoListService) {
+  constructor(
+    private route: ActivatedRoute,
+    private todoTaskService: TodoTaskService,
+    private todoListService: TodoListService,
+    private dialog: MatDialog
+    ) {
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.listId = +params.get('id');
       this.listName = params.get('name');
+      this.periousListName = this.listName;
       this.getTasks();
-      console.log('PRAMPARMSSSS===', params, params.get('name'), params.get('id'));
     });
   }
 
@@ -38,7 +45,7 @@ export class TodoListDetailComponent implements OnInit {
 
   editListName() {
     this.todoListService.updateList(this.listId, this.listName).subscribe(res => {
-      console.log('RESS', res);
+      this.periousListName = this.listName;
     }, error => {
       console.log('getTasks Error', error);
     });
@@ -75,8 +82,24 @@ export class TodoListDetailComponent implements OnInit {
     });
   }
 
-  editTask(id: number) {
+  editTask(task: ITask) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
 
+    dialogConfig.data = {
+      task
+    };
+    const dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('Dialog output:', data);
+      this.todoTaskService.updateTask(data.list_id, data.id, data).subscribe(res => {
+        console.log('RESS', res);
+      }, error => {
+        console.log('deleteList Error', error);
+      });
+    });
   }
 
 }

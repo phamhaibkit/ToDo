@@ -1,13 +1,13 @@
 <div class="form-container">
-  <h1>
+  <p class="label">
     {{label}}
-  </h1>
+  </p>
   
   <mat-form-field class="input-task">
     <input matInput placeholder="Input New List" [(ngModel)]="newList">
   </mat-form-field>
   
-  <button mat-raised-button (click)="addNewList()">
+  <button mat-raised-button (click)="addNewList()" [disabled]="!newList">
     <mat-icon>add</mat-icon>
     Add
   </button>
